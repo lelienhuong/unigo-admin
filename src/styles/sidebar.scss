@@ -89,6 +89,10 @@
         background-color: $subMenuHover !important;
       }
     }
+
+    .el-submenu__title i {
+      color: white;
+    }
   }
 
   .hideSidebar {
