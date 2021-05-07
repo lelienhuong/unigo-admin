@@ -16,12 +16,6 @@
               Home
             </el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
-            <el-dropdown-item>Github</el-dropdown-item>
-          </a>
-          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-            <el-dropdown-item>Docs</el-dropdown-item>
-          </a>
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">Log Out</span>
           </el-dropdown-item>
@@ -32,7 +26,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 
@@ -42,9 +36,11 @@ export default {
     Hamburger
   },
   computed: {
+    ...mapState({
+      avatar: (state) => state.auth.data?.user?.avatar
+    }),
     ...mapGetters([
-      'sidebar',
-      'avatar'
+      'sidebar'
     ])
   },
   methods: {
@@ -52,7 +48,7 @@ export default {
       this.$store.dispatch('app/toggleSideBar')
     },
     async logout() {
-      await this.$store.dispatch('user/logout')
+      await this.$store.dispatch('auth/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     }
   }

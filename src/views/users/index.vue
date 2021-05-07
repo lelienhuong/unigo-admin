@@ -13,30 +13,30 @@
           {{ scope.$index }}
         </template>
       </el-table-column>
-      <el-table-column label="Title">
+      <el-table-column label="Full Name">
         <template slot-scope="scope">
-          {{ scope.row.title }}
+          {{ scope.row.fullName }}
         </template>
       </el-table-column>
-      <el-table-column label="Author" width="110" align="center">
+      <el-table-column label="Email">
         <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
+          {{ scope.row.email }}
         </template>
       </el-table-column>
-      <el-table-column label="Pageviews" width="110" align="center">
+      <el-table-column label="Phone">
         <template slot-scope="scope">
-          {{ scope.row.pageviews }}
+          {{ scope.row.phone }}
         </template>
       </el-table-column>
-      <el-table-column class-name="status-col" label="Status" width="110" align="center">
+      <el-table-column label="Birthday">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
+          {{ scope.row.birthday }}
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="created_at" label="Display_time" width="200">
+      <el-table-column label="Join date" width="200">
         <template slot-scope="scope">
           <i class="el-icon-time" />
-          <span>{{ scope.row.display_time }}</span>
+          <span>{{ scope.row.createdAt }}</span>
         </template>
       </el-table-column>
     </el-table>
@@ -44,21 +44,17 @@
 </template>
 
 <script>
-import { tableService } from '@/services/table'
+import dev from '@/utils/dev'
+import { userService } from '@/services/user'
 
 export default {
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
-      }
-      return statusMap[status]
-    }
-  },
+  name: 'Users',
   data() {
     return {
+      query: {
+        page: 1,
+        limit: 10
+      },
       list: null,
       listLoading: true
     }
@@ -67,12 +63,16 @@ export default {
     this.fetchData()
   },
   methods: {
-    fetchData() {
-      this.listLoading = true
-      tableService.getTableList().then(({ data }) => {
-        this.list = data.data.items
+    async fetchData() {
+      try {
+        this.listLoading = true
+        const { data } = await userService.getMany(this.query)
+        this.list = data.data
+      } catch (err) {
+        dev.error(err)
+      } finally {
         this.listLoading = false
-      })
+      }
     }
   }
 }

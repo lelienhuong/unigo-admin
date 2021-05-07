@@ -15,7 +15,7 @@ export const authApi = axios.create({
 // Add a request interceptor
 authApi.interceptors.request.use(
   (config) => {
-    config.headers.Authorization = 'Bearer ' + store?.state?.user?.token
+    config.headers.Authorization = 'Bearer ' + store?.state?.auth?.data?.token
     dev.log('DevOnly | Authenticated API executed')
     // Must return config
     return config

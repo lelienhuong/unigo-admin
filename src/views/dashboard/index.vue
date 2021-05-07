@@ -1,18 +1,18 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">Hello {{ name }}</div>
+    <div class="dashboard-text">Hello {{ fullName }}</div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Dashboard',
   computed: {
-    ...mapGetters([
-      'name'
-    ])
+    ...mapState({
+      fullName: (state) => state.auth.data?.user?.fullName
+    })
   }
 }
 </script>
