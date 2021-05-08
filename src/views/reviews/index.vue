@@ -13,7 +13,7 @@
           {{ scope.row.id }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="Rate" width="50">
+      <el-table-column align="center" label="Rate" width="70">
         <template slot-scope="scope">
           {{ scope.row.rate }}
         </template>

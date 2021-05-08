@@ -141,7 +141,7 @@ $cursor: #fff;
       height: 47px;
       caret-color: $cursor;
       &::selection {
-        background-color: var(--color-green);
+        background-color: var(--color-red);
         color: white;
       }
 
