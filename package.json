@@ -1,8 +1,8 @@
 {
-  "name": "vue-admin-template",
+  "name": "beebee.travel",
   "version": "4.4.0",
-  "description": "A vue admin template with Element UI & axios & iconfont & permission control & lint",
-  "author": "Pan <panfree23@gmail.com>",
+  "description": "beebee.travel là một dự án hoàn toàn phi lợi nhuận của cộng đồng vì sự phát triển kinh tế du lịch. Phát triển bởi Google developer student clubs",
+  "author": "Google developer student clubs <dsc.dut@gmail.com>",
   "scripts": {
     "dev": "vue-cli-service serve",
     "build:prod": "vue-cli-service build",
