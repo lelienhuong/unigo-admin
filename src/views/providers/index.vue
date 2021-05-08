@@ -15,17 +15,17 @@
       </el-table-column>
       <el-table-column width="50" align="center">
         <template slot-scope="scope">
-          <el-image :src="scope.row.avatar" style="width: 25px; height: 25px" fit="cover" />
+          <el-image :src="scope.row.logo" style="width: 25px; height: 25px" fit="cover" />
         </template>
       </el-table-column>
-      <el-table-column label="Full Name">
+      <el-table-column label="Name">
         <template slot-scope="scope">
-          {{ scope.row.fullName }}
+          {{ scope.row.name }}
         </template>
       </el-table-column>
-      <el-table-column label="Email">
+      <el-table-column label="Code">
         <template slot-scope="scope">
-          {{ scope.row.email }}
+          {{ scope.row.code }}
         </template>
       </el-table-column>
       <el-table-column label="Phone">
@@ -33,15 +33,19 @@
           {{ scope.row.phone }}
         </template>
       </el-table-column>
-      <el-table-column label="Birthday">
+      <el-table-column label="Email">
         <template slot-scope="scope">
-          {{ scope.row.birthday | formatDate }}
+          {{ scope.row.email }}
         </template>
       </el-table-column>
-      <el-table-column label="Join date" width="200">
+      <el-table-column label="Website">
         <template slot-scope="scope">
-          <i class="el-icon-time" style="margin-right: 0.25rem" />
-          <span>{{ scope.row.createdAt | formatDateTime }}</span>
+          {{ scope.row.website }}
+        </template>
+      </el-table-column>
+      <el-table-column label="Type">
+        <template slot-scope="scope">
+          {{ scope.row.type }}
         </template>
       </el-table-column>
     </el-table>
@@ -50,10 +54,10 @@
 
 <script>
 import dev from '@/utils/dev'
-import { userService } from '@/services/user'
+import { providerService } from '@/services/provider'
 
 export default {
-  name: 'UsersIndexPage',
+  name: 'ProvidersIndexPage',
   data() {
     return {
       query: {
@@ -71,7 +75,7 @@ export default {
     async fetchData() {
       try {
         this.listLoading = true
-        const { data } = await userService.getMany(this.query)
+        const { data } = await providerService.getMany(this.query)
         this.list = data.data
       } catch (err) {
         dev.error(err)

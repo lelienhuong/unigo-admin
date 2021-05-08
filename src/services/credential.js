@@ -2,38 +2,38 @@ import qs from 'qs'
 import { authApi } from '@/api/auth'
 import store from '@/store'
 
-export const userService = {
+export const credentialService = {
   /**
    * Create multiple records
    */
-  createMany: (form) => authApi.post('users', { data: form }),
+  createMany: (form) => authApi.post('credentials', { data: form }),
   /**
     * Create single record
     */
-  createOne: (form) => authApi.post('users', form),
+  createOne: (form) => authApi.post('credentials', form),
   /**
     * Get multiple records
     */
   getMany: (query) =>
-    authApi.get('users?' + qs.stringify(query, { arrayFormat: 'repeat' })),
+    authApi.get('credentials?' + qs.stringify(query, { arrayFormat: 'repeat' })),
   /**
     * Get single record
     */
-  getOne: (id) => authApi.get(`users/${id}`),
+  getOne: (id) => authApi.get(`credentials/id`),
   /**
     * Update multiple records
     */
-  updateMany: (form) => authApi.put(`users`, { data: form }),
+  updateMany: (form) => authApi.put(`credentials`, { data: form }),
   /**
     * Update single record
     */
-  updateOne: (id, form) => authApi.put(`users/${id}`, form),
+  updateOne: (id, form) => authApi.put(`credentials/id`, form),
   /**
     * Delete multiple records
     */
   deleteMany: (ids) =>
     authApi.request({
-      url: '/users',
+      url: '/credentials',
       method: 'delete',
       headers: {
         Authorization: 'Bearer ' + store.state.auth?.data?.token
@@ -43,5 +43,5 @@ export const userService = {
   /**
     * Delete single record
     */
-  deleteOne: (id) => authApi.delete(`users/${id}`)
+  deleteOne: (id) => authApi.delete(`credentials/id`)
 }

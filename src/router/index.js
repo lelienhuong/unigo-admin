@@ -49,13 +49,84 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/users-index',
     name: 'users-management',
-    meta: { title: 'User management', icon: 'el-icon-s-help' },
+    meta: { title: 'User management', icon: 'el-icon-user-solid' },
     children: [
       {
         path: '/users-index',
         name: 'users-index',
         component: () => import('@/views/users/index'),
         meta: { title: 'Users list', icon: 'table' }
+      },
+      {
+        path: '/users-create',
+        name: 'users-create',
+        component: () => import('@/views/users/create'),
+        meta: { title: 'Create new user', icon: 'el-icon-plus' }
+      },
+      {
+        path: '/users-edit/:id',
+        name: 'users-edit',
+        component: () => import('@/views/users/edit'),
+        meta: { title: 'Update a user', icon: 'el-icon-edit-outline' },
+        hidden: true
+      }
+    ]
+  },
+
+  {
+    path: '/providers',
+    component: Layout,
+    redirect: '/providers-index',
+    name: 'providers-management',
+    meta: { title: 'Providers management', icon: 'el-icon-user' },
+    children: [
+      {
+        path: '/providers-index',
+        name: 'providers-index',
+        component: () => import('@/views/providers/index'),
+        meta: { title: 'Providers list', icon: 'table' }
+      },
+      {
+        path: '/providers-create',
+        name: 'providers-create',
+        component: () => import('@/views/providers/create'),
+        meta: { title: 'Create new provider', icon: 'el-icon-plus' }
+      },
+      {
+        path: '/providers-edit/:id',
+        name: 'providers-edit',
+        component: () => import('@/views/providers/edit'),
+        meta: { title: 'Update a provider', icon: 'el-icon-edit-outline' },
+        hidden: true
+      }
+    ]
+  },
+
+  {
+    path: '/credentials',
+    component: Layout,
+    redirect: '/credentials-index',
+    name: 'credentials-management',
+    meta: { title: 'Credentials management', icon: 'el-icon-user' },
+    children: [
+      {
+        path: '/credentials-index',
+        name: 'credentials-index',
+        component: () => import('@/views/credentials/index'),
+        meta: { title: 'Credentials list', icon: 'table' }
+      },
+      {
+        path: '/credentials-create',
+        name: 'credentials-create',
+        component: () => import('@/views/credentials/create'),
+        meta: { title: 'Create new credential', icon: 'el-icon-plus' }
+      },
+      {
+        path: '/credentials-edit/:id',
+        name: 'credentials-edit',
+        component: () => import('@/views/credentials/edit'),
+        meta: { title: 'Update a credential', icon: 'el-icon-edit-outline' },
+        hidden: true
       }
     ]
   },
