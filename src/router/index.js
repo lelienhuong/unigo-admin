@@ -78,7 +78,7 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/providers-index',
     name: 'providers-management',
-    meta: { title: 'Providers management', icon: 'el-icon-user' },
+    meta: { title: 'Providers management', icon: 'el-icon-s-custom' },
     children: [
       {
         path: '/providers-index',
@@ -107,7 +107,7 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/credentials-index',
     name: 'credentials-management',
-    meta: { title: 'Credentials management', icon: 'el-icon-user' },
+    meta: { title: 'Credentials management', icon: 'el-icon-folder' },
     children: [
       {
         path: '/credentials-index',
@@ -127,6 +127,51 @@ export const constantRoutes = [
         component: () => import('@/views/credentials/edit'),
         meta: { title: 'Update a credential', icon: 'el-icon-edit-outline' },
         hidden: true
+      }
+    ]
+  },
+
+  {
+    path: '/categories',
+    component: Layout,
+    redirect: '/categories-index',
+    name: 'categories-management',
+    meta: { title: 'Categories management', icon: 'el-icon-files' },
+    children: [
+      {
+        path: '/categories-index',
+        name: 'categories-index',
+        component: () => import('@/views/categories/index'),
+        meta: { title: 'Categories list', icon: 'el-icon-folder-opened' }
+      },
+      {
+        path: '/categories-create',
+        name: 'categories-create',
+        component: () => import('@/views/categories/create'),
+        meta: { title: 'Create new category', icon: 'el-icon-folder-add' }
+      },
+      {
+        path: '/categories-edit/:id',
+        name: 'categories-edit',
+        component: () => import('@/views/categories/edit'),
+        meta: { title: 'Update a category', icon: 'el-icon-folder-opened' },
+        hidden: true
+      }
+    ]
+  },
+
+  {
+    path: '/reviews',
+    component: Layout,
+    redirect: '/reviews-index',
+    name: 'reviews-management',
+    meta: { title: 'Reviews management', icon: 'el-icon-magic-stick' },
+    children: [
+      {
+        path: '/reviews-index',
+        name: 'reviews-index',
+        component: () => import('@/views/reviews/index'),
+        meta: { title: 'Reviews list', icon: 'el-icon-magic-stick' }
       }
     ]
   },
