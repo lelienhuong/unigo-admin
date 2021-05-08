@@ -35,8 +35,8 @@
       </el-table-column>
       <el-table-column label="Join date" width="200">
         <template slot-scope="scope">
-          <i class="el-icon-time" />
-          <span>{{ scope.row.createdAt }}</span>
+          <i class="el-icon-time" style="margin-right: 0.25rem" />
+          <span>{{ scope.row.createdAt | formatDate }}</span>
         </template>
       </el-table-column>
     </el-table>

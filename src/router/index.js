@@ -47,12 +47,12 @@ export const constantRoutes = [
   {
     path: '/users',
     component: Layout,
-    // redirect: '/users',
+    redirect: '/users-index',
     name: 'users-management',
     meta: { title: 'User management', icon: 'el-icon-s-help' },
     children: [
       {
-        path: '/users',
+        path: '/users-index',
         name: 'users-index',
         component: () => import('@/views/users/index'),
         meta: { title: 'Users list', icon: 'table' }
