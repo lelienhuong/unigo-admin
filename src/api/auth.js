@@ -1,6 +1,8 @@
 import axios from 'axios'
 import store from '@/store'
 import dev from '@/utils/dev'
+import { Message } from 'element-ui'
+import router from '@/router'
 // Create a custom axios instance
 export const authApi = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
@@ -36,6 +38,11 @@ authApi.interceptors.response.use(
   (error) => {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
+    if (error.response.data.message === 'Token expired') {
+      localStorage.removeItem('auth')
+      router.push('/login')
+    }
+    Message.error(error.response.data.message)
     return Promise.reject(error)
   }
 )

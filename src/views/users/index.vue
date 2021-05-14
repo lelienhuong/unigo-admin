@@ -8,27 +8,23 @@
       border
       fit
     >
-      <el-table-column align="center" label="ID" width="50">
-        <template slot-scope="scope">
-          {{ scope.row.id }}
-        </template>
-      </el-table-column>
-      <el-table-column width="50" align="center">
+      <el-table-column label="#" width="50" align="center" fixed>
         <template slot-scope="scope">
           <el-image :src="scope.row.avatar" style="width: 25px; height: 25px" fit="cover" />
         </template>
       </el-table-column>
-      <el-table-column label="Full Name">
+      <el-table-column label="Full Name" width="250">
         <template slot-scope="scope">
-          {{ scope.row.fullName }}
+          <small style="margin-right: 0.5rem; display: inline-block"><b>#{{ scope.row.id }}</b></small>
+          <span>{{ scope.row.fullName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Email">
+      <el-table-column label="Email" width="250">
         <template slot-scope="scope">
           {{ scope.row.email }}
         </template>
       </el-table-column>
-      <el-table-column label="Phone">
+      <el-table-column label="Phone" width="130">
         <template slot-scope="scope">
           {{ scope.row.phone }}
         </template>
@@ -38,10 +34,16 @@
           {{ scope.row.birthday | formatDate }}
         </template>
       </el-table-column>
-      <el-table-column label="Join date" width="200">
+      <el-table-column label="Join date">
         <template slot-scope="scope">
           <i class="el-icon-time" style="margin-right: 0.25rem" />
           <span>{{ scope.row.createdAt | formatDateTime }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column width="70" align="center" fixed="right">
+        <template slot-scope="scope">
+          <i style="cursor: pointer; margin: 0.5rem" class="el-icon-edit" @click="onEdit(scope.row.slug)" />
+          <i style="cursor: pointer; margin: 0.5rem" class="el-icon-delete" @click="onDelete(scope.row.slug)" />
         </template>
       </el-table-column>
     </el-table>
@@ -68,6 +70,24 @@ export default {
     this.fetchData()
   },
   methods: {
+    onEdit(id) {
+      this.$router.push({
+        name: 'users-edit',
+        params: {
+          id
+        }
+      })
+    },
+    async onDelete(id) {
+      try {
+        this.listLoading = true
+        await userService.deleteOne(id)
+      } catch (err) {
+        dev.error(err)
+      } finally {
+        this.listLoading = false
+      }
+    },
     async fetchData() {
       try {
         this.listLoading = true

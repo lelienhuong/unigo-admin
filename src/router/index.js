@@ -58,12 +58,6 @@ export const constantRoutes = [
         meta: { title: 'Users list', icon: 'table' }
       },
       {
-        path: '/users-create',
-        name: 'users-create',
-        component: () => import('@/views/users/create'),
-        meta: { title: 'Create new user', icon: 'el-icon-plus' }
-      },
-      {
         path: '/users-edit/:id',
         name: 'users-edit',
         component: () => import('@/views/users/edit'),
