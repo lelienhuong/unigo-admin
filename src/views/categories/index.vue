@@ -8,9 +8,35 @@
       border
       fit
     >
-      <el-table-column align="center" label="ID" width="50">
+      <el-table-column label="Full Name" width="250">
         <template slot-scope="scope">
-          {{ scope.row.id }}
+          <small style="margin-right: 0.5rem; display: inline-block"><b>#{{ scope.row.id }}</b></small>
+          <span>{{ scope.row.name }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="Description" width="350">
+        <template slot-scope="scope">
+          {{ scope.row.description }}
+        </template>
+      </el-table-column>
+      <el-table-column label="Created date">
+        <template slot-scope="scope">
+          <i class="el-icon-time" style="margin-right: 0.25rem" />
+          <span>{{ scope.row.createdAt | formatDateTime }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column width="70" align="center" fixed="right">
+        <template slot-scope="scope">
+          <i
+            style="cursor: pointer; margin: 0.75rem; font-size: 1.25rem"
+            class="el-icon-edit"
+            @click="onEdit(scope.row.slug)"
+          />
+          <i
+            style="cursor: pointer; margin: 0.75rem; font-size: 1.25rem"
+            class="el-icon-delete"
+            @click="onDelete(scope.row.slug)"
+          />
         </template>
       </el-table-column>
     </el-table>
@@ -20,8 +46,11 @@
 <script>
 import dev from '@/utils/dev'
 import { categoryService } from '@/services/category'
+import { defineComponent } from '@vue/composition-api'
+import { useElement } from '@/use/element'
+const { confirmAction } = useElement()
 
-export default {
+export default defineComponent({
   name: 'CategorysIndexPage',
   data() {
     return {
@@ -37,6 +66,31 @@ export default {
     this.fetchData()
   },
   methods: {
+    onEdit(slug) {
+      this.$router.push({
+        name: 'categories-edit',
+        params: {
+          slug
+        }
+      })
+    },
+    onDelete(slug) {
+      confirmAction({
+        title: 'This will delete the record. Continue?',
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'Cancel'
+      }, async() => {
+        try {
+          this.listLoading = true
+          await categoryService.deleteOne(slug)
+          await this.fetchData()
+        } catch (err) {
+          dev.error(err)
+        } finally {
+          this.listLoading = false
+        }
+      })
+    },
     async fetchData() {
       try {
         this.listLoading = true
@@ -49,5 +103,5 @@ export default {
       }
     }
   }
-}
+})
 </script>

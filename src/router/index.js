@@ -145,7 +145,7 @@ export const constantRoutes = [
         meta: { title: 'Create new category', icon: 'el-icon-folder-add' }
       },
       {
-        path: '/categories-edit/:id',
+        path: '/categories-edit/:slug',
         name: 'categories-edit',
         component: () => import('@/views/categories/edit'),
         meta: { title: 'Update a category', icon: 'el-icon-folder-opened' },

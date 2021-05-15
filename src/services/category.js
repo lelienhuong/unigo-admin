@@ -19,15 +19,15 @@ export const categoryService = {
   /**
     * Get single record
     */
-  getOne: (id) => authApi.get(`categories/id`),
+  getOne: (id) => authApi.get(`categories/${id}`),
   /**
     * Update multiple records
     */
-  updateMany: (form) => authApi.put(`categories`, { data: form }),
+  updateMany: (form) => authApi.patch(`categories`, { data: form }),
   /**
     * Update single record
     */
-  updateOne: (id, form) => authApi.put(`categories/id`, form),
+  updateOne: (id, form) => authApi.patch(`categories/${id}`, form),
   /**
     * Delete multiple records
     */
@@ -43,5 +43,5 @@ export const categoryService = {
   /**
     * Delete single record
     */
-  deleteOne: (id) => authApi.delete(`categories/id`)
+  deleteOne: (id) => authApi.delete(`categories/${id}`)
 }
