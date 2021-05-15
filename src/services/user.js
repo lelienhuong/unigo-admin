@@ -23,11 +23,11 @@ export const userService = {
   /**
     * Update multiple records
     */
-  updateMany: (form) => authApi.put(`users`, { data: form }),
+  updateMany: (form) => authApi.patch(`users`, { data: form }),
   /**
     * Update single record
     */
-  updateOne: (id, form) => authApi.put(`users/${id}`, form),
+  updateOne: (id, form) => authApi.patch(`users/${id}`, form),
   /**
     * Delete multiple records
     */

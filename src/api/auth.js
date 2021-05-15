@@ -40,7 +40,7 @@ authApi.interceptors.response.use(
     // Do something with response error
     if (error.response.data.message === 'Token expired') {
       localStorage.removeItem('auth')
-      router.push('/login')
+      router.push({ name: 'login' })
     }
     Message.error(error.response.data.message)
     return Promise.reject(error)

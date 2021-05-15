@@ -42,8 +42,16 @@
       </el-table-column>
       <el-table-column width="70" align="center" fixed="right">
         <template slot-scope="scope">
-          <i style="cursor: pointer; margin: 0.5rem" class="el-icon-edit" @click="onEdit(scope.row.slug)" />
-          <i style="cursor: pointer; margin: 0.5rem" class="el-icon-delete" @click="onDelete(scope.row.slug)" />
+          <i
+            style="cursor: pointer; margin: 0.75rem; font-size: 1.25rem"
+            class="el-icon-edit"
+            @click="onEdit(scope.row.slug)"
+          />
+          <i
+            style="cursor: pointer; margin: 0.75rem; font-size: 1.25rem"
+            class="el-icon-delete"
+            @click="onDelete(scope.row.slug)"
+          />
         </template>
       </el-table-column>
     </el-table>
@@ -53,8 +61,11 @@
 <script>
 import dev from '@/utils/dev'
 import { userService } from '@/services/user'
+import { defineComponent } from '@vue/composition-api'
+import { useElement } from '@/use/element'
+const { confirmAction } = useElement()
 
-export default {
+export default defineComponent({
   name: 'UsersIndexPage',
   data() {
     return {
@@ -78,15 +89,22 @@ export default {
         }
       })
     },
-    async onDelete(id) {
-      try {
-        this.listLoading = true
-        await userService.deleteOne(id)
-      } catch (err) {
-        dev.error(err)
-      } finally {
-        this.listLoading = false
-      }
+    onDelete(id) {
+      confirmAction({
+        title: 'This will delete the record. Continue?',
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'Cancel'
+      }, async() => {
+        try {
+          this.listLoading = true
+          await userService.deleteOne(id)
+          await this.fetchData()
+        } catch (err) {
+          dev.error(err)
+        } finally {
+          this.listLoading = false
+        }
+      })
     },
     async fetchData() {
       try {
@@ -100,5 +118,5 @@ export default {
       }
     }
   }
-}
+})
 </script>

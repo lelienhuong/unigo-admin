@@ -1,5 +1,6 @@
 import axios from 'axios'
 import dev from '@/utils/dev'
+import { Message } from 'element-ui'
 
 // Create a custom axios instance
 export const clientApi = axios.create({
@@ -35,6 +36,7 @@ clientApi.interceptors.response.use(
   (error) => {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
+    Message.error(error.response.data.message)
     return Promise.reject(error)
   }
 )

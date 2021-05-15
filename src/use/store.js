@@ -1,5 +1,10 @@
 import store from '@/store'
 
+/**
+ * Use for Composition API
+ *
+ * @returns
+ */
 export const useStore = () => {
   const rootState = store.state
 
