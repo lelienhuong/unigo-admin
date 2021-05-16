@@ -19,15 +19,15 @@ export const tagService = {
   /**
     * Get single record
     */
-  getOne: (id) => authApi.get(`tags/id`),
+  getOne: (id) => authApi.get(`tags/${id}`),
   /**
     * Update multiple records
     */
-  updateMany: (form) => authApi.put(`tags`, { data: form }),
+  updateMany: (form) => authApi.patch(`tags`, { data: form }),
   /**
     * Update single record
     */
-  updateOne: (id, form) => authApi.put(`tags/id`, form),
+  updateOne: (id, form) => authApi.patch(`tags/${id}`, form),
   /**
     * Delete multiple records
     */
@@ -43,5 +43,5 @@ export const tagService = {
   /**
     * Delete single record
     */
-  deleteOne: (id) => authApi.delete(`tags/id`)
+  deleteOne: (id) => authApi.delete(`tags/${id}`)
 }

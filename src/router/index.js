@@ -149,6 +149,35 @@ export const constantRoutes = [
   },
 
   {
+    path: '/tags',
+    component: Layout,
+    redirect: '/tags-index',
+    name: 'tags-management',
+    meta: { title: 'Tags management', icon: 'el-icon-collection' },
+    children: [
+      {
+        path: '/tags-index',
+        name: 'tags-index',
+        component: () => import('@/views/tags/index'),
+        meta: { title: 'Tags list', icon: 'el-icon-collection-tag' }
+      },
+      {
+        path: '/tags-create',
+        name: 'tags-create',
+        component: () => import('@/views/tags/create'),
+        meta: { title: 'Create new tag', icon: 'el-icon-plus' }
+      },
+      {
+        path: '/tags-edit/:id',
+        name: 'tags-edit',
+        component: () => import('@/views/tags/edit'),
+        meta: { title: 'Update a tag', icon: 'el-icon-collection-tag' },
+        hidden: true
+      }
+    ]
+  },
+
+  {
     path: '/reviews',
     component: Layout,
     redirect: '/reviews-index',
