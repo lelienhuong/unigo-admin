@@ -24,7 +24,11 @@ Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
 // Vue.use(ElementUI)
 
+import MyElTable from '@/components/MyElTable'
+
 Vue.config.productionTip = false
+
+Vue.component('my-el-table', MyElTable)
 
 new Vue({
   el: '#app',

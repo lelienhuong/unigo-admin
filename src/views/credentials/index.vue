@@ -20,8 +20,11 @@
 <script>
 import dev from '@/utils/dev'
 import { credentialService } from '@/services/credential'
+import { defineComponent } from '@vue/composition-api'
+import { useElement } from '@/use/element'
+const { confirmAction } = useElement()
 
-export default {
+export default defineComponent({
   name: 'CredentialsIndexPage',
   data() {
     return {
@@ -30,6 +33,7 @@ export default {
         limit: 10
       },
       list: null,
+      listTotal: null,
       listLoading: true
     }
   },
@@ -37,11 +41,41 @@ export default {
     this.fetchData()
   },
   methods: {
+    async onPageChange(page) {
+      this.query.page = page
+      await this.fetchData()
+    },
+    onEdit(slug) {
+      this.$router.push({
+        name: 'credentials-edit',
+        params: {
+          slug
+        }
+      })
+    },
+    onDelete(slug) {
+      confirmAction({
+        title: 'This will delete the record. Continue?',
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'Cancel'
+      }, async() => {
+        try {
+          this.listLoading = true
+          await credentialService.deleteOne(slug)
+          await this.fetchData()
+        } catch (err) {
+          dev.error(err)
+        } finally {
+          this.listLoading = false
+        }
+      })
+    },
     async fetchData() {
       try {
         this.listLoading = true
         const { data } = await credentialService.getMany(this.query)
         this.list = data.data
+        this.listTotal = data.total
       } catch (err) {
         dev.error(err)
       } finally {
@@ -49,5 +83,5 @@ export default {
       }
     }
   }
-}
+})
 </script>

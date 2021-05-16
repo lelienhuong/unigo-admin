@@ -1,12 +1,12 @@
 <template>
   <div class="app-container">
-    <el-table
+    <my-el-table
       v-loading="listLoading"
-      element-loading-text="Loading"
-      highlight-current-row
+      :query="query"
       :data="list"
-      border
-      fit
+      :total="listTotal"
+      :actions="[]"
+      @my-table-page-change="onPageChange"
     >
       <el-table-column align="center" label="ID" width="50">
         <template slot-scope="scope">
@@ -37,16 +37,19 @@
           </el-collapse>
         </template>
       </el-table-column>
-    </el-table>
+    </my-el-table>
   </div>
 </template>
 
 <script>
 import dev from '@/utils/dev'
 import { reviewService } from '@/services/review'
+import { defineComponent } from '@vue/composition-api'
+import { useElement } from '@/use/element'
+const { confirmAction } = useElement()
 
-export default {
-  name: 'ReviewsIndexPage',
+export default defineComponent({
+  name: 'ReviewssIndexPage',
   data() {
     return {
       query: {
@@ -54,18 +57,49 @@ export default {
         limit: 10
       },
       list: null,
+      listTotal: null,
       listLoading: true
     }
   },
-  created() {
-    this.fetchData()
+  async created() {
+    await this.fetchData()
   },
   methods: {
+    async onPageChange(page) {
+      this.query.page = page
+      await this.fetchData()
+    },
+    onEdit(id) {
+      this.$router.push({
+        name: 'reviews-edit',
+        params: {
+          id
+        }
+      })
+    },
+    onDelete(id) {
+      confirmAction({
+        title: 'This will delete the record. Continue?',
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'Cancel'
+      }, async() => {
+        try {
+          this.listLoading = true
+          await reviewService.deleteOne(id)
+          await this.fetchData()
+        } catch (err) {
+          dev.error(err)
+        } finally {
+          this.listLoading = false
+        }
+      })
+    },
     async fetchData() {
       try {
         this.listLoading = true
         const { data } = await reviewService.getMany(this.query)
         this.list = data.data
+        this.listTotal = data.total
       } catch (err) {
         dev.error(err)
       } finally {
@@ -73,5 +107,5 @@ export default {
       }
     }
   }
-}
+})
 </script>

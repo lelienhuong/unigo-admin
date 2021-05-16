@@ -1,12 +1,13 @@
 <template>
   <div class="app-container">
-    <el-table
+    <my-el-table
       v-loading="listLoading"
-      element-loading-text="Loading"
-      highlight-current-row
+      :query="query"
       :data="list"
-      border
-      fit
+      :total="listTotal"
+      @my-table-page-change="onPageChange"
+      @my-table-edit="onEdit($event.slug)"
+      @my-table-delete="onDelete($event.slug)"
     >
       <el-table-column label="#" width="50" align="center" fixed>
         <template slot-scope="scope">
@@ -40,21 +41,7 @@
           <span>{{ scope.row.createdAt | formatDateTime }}</span>
         </template>
       </el-table-column>
-      <el-table-column width="70" align="center" fixed="right">
-        <template slot-scope="scope">
-          <i
-            style="cursor: pointer; margin: 0.75rem; font-size: 1.25rem"
-            class="el-icon-edit"
-            @click="onEdit(scope.row.slug)"
-          />
-          <i
-            style="cursor: pointer; margin: 0.75rem; font-size: 1.25rem"
-            class="el-icon-delete"
-            @click="onDelete(scope.row.slug)"
-          />
-        </template>
-      </el-table-column>
-    </el-table>
+    </my-el-table>
   </div>
 </template>
 
@@ -74,6 +61,7 @@ export default defineComponent({
         limit: 10
       },
       list: null,
+      listTotal: null,
       listLoading: true
     }
   },
@@ -81,6 +69,10 @@ export default defineComponent({
     this.fetchData()
   },
   methods: {
+    async onPageChange(page) {
+      this.query.page = page
+      await this.fetchData()
+    },
     onEdit(id) {
       this.$router.push({
         name: 'users-edit',
@@ -111,6 +103,7 @@ export default defineComponent({
         this.listLoading = true
         const { data } = await userService.getMany(this.query)
         this.list = data.data
+        this.listTotal = data.total
       } catch (err) {
         dev.error(err)
       } finally {
