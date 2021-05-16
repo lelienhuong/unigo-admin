@@ -1,6 +1,6 @@
 <template>
   <div v-loading="formLoading" class="app-container">
-    <el-form ref="formUpdateRef" :model="form" label-width="120px">
+    <el-form ref="formUpdateRef" :model="form" :rules="formRules" label-width="120px">
       <el-form-item label="Name">
         <el-input v-model="form.name" autocomplete="new-password" />
       </el-form-item>
@@ -8,9 +8,16 @@
         <el-input v-model="form.description" type="textarea" autocomplete="new-password" />
       </el-form-item>
       <el-form-item label="Icon type">
-        <el-input v-model="form.iconType" autocomplete="new-password" />
+        <el-select v-model="form.iconType" placeholder="Select an icon type">
+          <el-option
+            v-for="item in [{ label: 'Font awesome', value: 'fontawesome' }, { label: 'Custom', value: 'custom' }]"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
-      <el-form-item label="Icon name">
+      <el-form-item label="Icon class">
         <el-input v-model="form.iconName" autocomplete="new-password" />
       </el-form-item>
       <div style="text-align: right">
@@ -34,6 +41,14 @@ export default defineComponent({
     const route = router.history.current
 
     const formUpdateRef = ref(null)
+    const formRules = {
+      name: [
+        { required: true, message: 'This field is required' }
+      ],
+      description: [],
+      iconType: [],
+      iconName: []
+    }
     const formOriginal = {
       name: null,
       description: null,
@@ -43,13 +58,15 @@ export default defineComponent({
     const form = ref(formOriginal)
     const formLoading = ref(false)
 
-    const fetchOne = async(slug) => {
+    const fetchOne = async(id) => {
       try {
         formLoading.value = true
-        const { data } = await categoryService.getOne(slug)
+        const { data } = await categoryService.getOne(id)
         Object.keys(form.value).forEach(key => {
           form.value[key] = data[key]
         })
+        form.value.iconType = data.icon.type
+        form.value.iconName = data.icon.name
       } catch (err) {
         dev.error(err)
       } finally {
@@ -59,14 +76,19 @@ export default defineComponent({
 
     const updateOne = async() => {
       try {
-        if (formUpdateRef.validate()) {
+        if (await formUpdateRef.value.validate()) {
           formLoading.value = true
           const normalizedForm = JSON.parse(JSON.stringify(form.value))
           Object.keys(normalizedForm).forEach(key => {
             if (!normalizedForm[key]) delete normalizedForm[key]
           })
-          await categoryService.updateOne(route.params.slug, form)
-          await fetchOne(route.params.slug)
+          const { data } = await categoryService.updateOne(route.params.slug, form.value)
+          router.push({
+            name: 'categories-edit',
+            params: {
+              slug: data.slug
+            }
+          })
         }
       } catch (err) {
         dev.error(err)
@@ -77,14 +99,17 @@ export default defineComponent({
 
     const clearForm = () => {
       form.value = formOriginal
-      formUpdateRef.resetFields()
+      formUpdateRef.value.resetFields()
     }
 
     onBeforeMount(() => {
       fetchOne(route.params.slug)
     })
 
-    return { form, formLoading, clearForm, fetchOne, updateOne }
+    return { form, formLoading, formUpdateRef, formRules, clearForm, fetchOne, updateOne }
+  },
+  mounted() {
+    this.formUpdateRef = this.$refs.formUpdateRef
   }
 })
 </script>

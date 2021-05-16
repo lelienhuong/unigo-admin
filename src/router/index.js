@@ -81,12 +81,6 @@ export const constantRoutes = [
         meta: { title: 'Providers list', icon: 'table' }
       },
       {
-        path: '/providers-create',
-        name: 'providers-create',
-        component: () => import('@/views/providers/create'),
-        meta: { title: 'Create new provider', icon: 'el-icon-plus' }
-      },
-      {
         path: '/providers-edit/:id',
         name: 'providers-edit',
         component: () => import('@/views/providers/edit'),

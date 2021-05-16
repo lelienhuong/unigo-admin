@@ -1,6 +1,6 @@
 <template>
   <div v-loading="formLoading" class="app-container">
-    <el-form ref="formUpdateRef" :model="form" label-width="120px">
+    <el-form ref="formUpdateRef" :model="form" :rules="formRules" label-width="120px">
       <el-form-item label="Avatar">
         <el-image :src="form.avatar" fit="cover" style="width: 100px; height: 100px" />
         <el-input v-model="form.avatar" />
@@ -44,6 +44,19 @@ export default defineComponent({
     const route = router.history.current
 
     const formUpdateRef = ref(null)
+    const formRules = {
+      fullName: [
+        { required: true, message: 'This field is required' }
+      ],
+      phone: [
+        { required: true, message: 'This field is required' }
+      ],
+      password: [],
+      address: [],
+      birthday: [],
+      bio: [],
+      avatar: []
+    }
     const formOriginal = {
       fullName: null,
       phone: null,
@@ -72,13 +85,13 @@ export default defineComponent({
 
     const updateOne = async() => {
       try {
-        if (formUpdateRef.validate()) {
+        if (formUpdateRef.value.validate()) {
           formLoading.value = true
           const normalizedForm = JSON.parse(JSON.stringify(form.value))
           Object.keys(normalizedForm).forEach(key => {
             if (!normalizedForm[key]) delete normalizedForm[key]
           })
-          await userService.updateOne(route.params.id, form)
+          await userService.updateOne(route.params.id, form.value)
           await fetchOne(route.params.id)
         }
       } catch (err) {
@@ -90,14 +103,17 @@ export default defineComponent({
 
     const clearForm = () => {
       form.value = formOriginal
-      formUpdateRef.resetFields()
+      formUpdateRef.value.resetFields()
     }
 
     onBeforeMount(() => {
       fetchOne(route.params.id)
     })
 
-    return { form, formLoading, clearForm, fetchOne, updateOne }
+    return { form, formLoading, formUpdateRef, formRules, clearForm, fetchOne, updateOne }
+  },
+  mounted() {
+    this.formUpdateRef = this.$refs.formUpdateRef
   }
 })
 </script>

@@ -115,3 +115,11 @@ export function param2Obj(url) {
   })
   return obj
 }
+
+export function delay(timeout) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve()
+    }, timeout)
+  })
+}
