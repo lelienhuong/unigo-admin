@@ -9,7 +9,7 @@ import { delay } from '@/utils'
 export const authApi = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
   headers: {
-    // 'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': '*',
     Accept: 'application/json',
     'Content-Type': 'application/json',
     Authorization: ''

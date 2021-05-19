@@ -3,11 +3,11 @@
     <transition name="sidebarLogoFade">
       <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
         <img v-if="logo" :src="logo" class="sidebar-logo">
-        <img v-else :src="logoText" alt="beebee.travel">
+        <img v-else :src="logoText" alt="unigo.pro">
       </router-link>
-      <router-link v-else key="expand" class="sidebar-logo-link" to="/">
-        <img v-if="logo" :src="logo" class="sidebar-logo">
-        <img :src="logoText" alt="beebee.travel">
+      <router-link v-else key="expand" class="sidebar-logo-link-expanded" to="/">
+        <!-- <img v-if="logo" :src="logo" class="sidebar-logo"> -->
+        <img class="sidebar-logo-text" :src="logoText" alt="unigo.pro">
       </router-link>
     </transition>
   </div>
@@ -24,8 +24,8 @@ export default {
   },
   data() {
     return {
-      logo: '/logo/logo.svg',
-      logoText: '/logo/logo-text.svg'
+      logo: '/logo/logo.jpg',
+      logoText: '/logo/logo-and-text.svg'
     }
   }
 }
@@ -46,7 +46,7 @@ export default {
   width: 100%;
   height: 50px;
   line-height: 50px;
-  background: var(--color-green);
+  background: var(--color-white);
   text-align: center;
   overflow: hidden;
 
@@ -74,6 +74,19 @@ export default {
       font-size: 14px;
       font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       vertical-align: middle;
+    }
+  }
+  & .sidebar-logo-link-expanded{
+    display: flex !important;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding-left: 5px;
+    & .sidebar-logo-text {
+      width: 7rem;
+      height: auto;
+      justify-content: end !important;
     }
   }
 

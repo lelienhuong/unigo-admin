@@ -25,6 +25,9 @@ $--color-blue-600: #3B78DC;
 $--color-blue-700: #3264B7;
 $--color-blue-800: #285092;
 $--color-blue-900: #204178;
+$--color-dark-blue:rgba(51, 77, 110, 1);
+$--color-blue-other: rgba(11, 102, 191, 1);
+
 
 $--color-green: #0F9D58;
 $--color-green-50: #F3FAF7;
@@ -150,16 +153,17 @@ $--color-info-700: #3F7789;
 $--color-info-800: #2F5A67;
 $--color-info-900: #203C44;
 
+
 // sidebar
-$menuText:white;
-$menuActiveText:$--color-yellow;
+$menuText: $--color-dark-blue;
+$menuActiveText:$--color-blue-other;
 $subMenuActiveText:#f4f4f5; //https://github.com/ElemeFE/element/issues/12951
 
-$menuBg: $--color-green;
-$menuHover: $--color-green-600;
+$menuBg: $--color-white;
+$menuHover: $--color-info-200;
 
-$subMenuBg: $--color-green-600;
-$subMenuHover: $--color-green-700;
+$subMenuBg: white;
+$subMenuHover: $--color-info-200;
 
 $sideBarWidth: 260px;
 

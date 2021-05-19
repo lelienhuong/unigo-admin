@@ -63,135 +63,163 @@ export const constantRoutes = [
         component: () => import('@/views/users/edit'),
         meta: { title: 'Update a user', icon: 'el-icon-edit-outline' },
         hidden: true
+      }]
+  },
+
+  {
+    path: '/sectors',
+    component: Layout,
+    redirect: '/sectors-index',
+    name: 'sectors-management',
+    meta: { title: 'Sectors management', icon: 'el-icon-folder-checked' },
+    children: [
+      {
+        path: '/sectors-index',
+        name: 'sectors-index',
+        component: () => import('@/views/sectors/index'),
+        meta: { title: 'Sectors list', icon: 'table' }
+      },
+      {
+        path: '/sectors-edit/:id',
+        name: 'sectors-edit',
+        component: () => import('@/views/sectors/edit'),
+        meta: { title: 'Update a sector', icon: 'el-icon-edit-outline' },
+        hidden: true
+      },
+      {
+        path: '/sectors-create',
+        name: 'sectors-create',
+        component: () => import('@/views/sectors/create'),
+        meta: { title: 'Create new sector', icon: 'el-icon-plus' }
       }
     ]
   },
 
+  // {
+  //   path: '/providers',
+  //   component: Layout,
+  //   redirect: '/providers-index',
+  //   name: 'providers-management',
+  //   meta: { title: 'Providers management', icon: 'el-icon-s-custom' },
+  //   children: [
+  //     {
+  //       path: '/providers-index',
+  //       name: 'providers-index',
+  //       component: () => import('@/views/providers/index'),
+  //       meta: { title: 'Providers list', icon: 'table' }
+  //     },
+  //     {
+  //       path: '/providers-edit/:id',
+  //       name: 'providers-edit',
+  //       component: () => import('@/views/providers/edit'),
+  //       meta: { title: 'Update a provider', icon: 'el-icon-edit-outline' },
+  //       hidden: true
+  //     }
+  //   ]
+  // },
+
   {
-    path: '/providers',
+    path: '/places',
     component: Layout,
-    redirect: '/providers-index',
-    name: 'providers-management',
-    meta: { title: 'Providers management', icon: 'el-icon-s-custom' },
+    redirect: '/places-index',
+    name: 'places-management',
+    meta: { title: 'Places management', icon: 'el-icon-folder-checked' },
     children: [
       {
-        path: '/providers-index',
-        name: 'providers-index',
-        component: () => import('@/views/providers/index'),
-        meta: { title: 'Providers list', icon: 'table' }
+        path: '/places-index',
+        name: 'places-index',
+        component: () => import('@/views/places/index'),
+        meta: { title: 'Places list', icon: 'table' }
       },
       {
-        path: '/providers-edit/:id',
-        name: 'providers-edit',
-        component: () => import('@/views/providers/edit'),
-        meta: { title: 'Update a provider', icon: 'el-icon-edit-outline' },
+        path: '/places-create',
+        name: 'places-create',
+        component: () => import('@/views/places/create'),
+        meta: { title: 'Create new place', icon: 'el-icon-plus' }
+      },
+      {
+        path: '/places-edit/:id',
+        name: 'places-edit',
+        component: () => import('@/views/places/edit'),
+        meta: { title: 'Update a place', icon: 'el-icon-edit-outline' },
         hidden: true
       }
     ]
   },
 
-  {
-    path: '/credentials',
-    component: Layout,
-    redirect: '/credentials-index',
-    name: 'credentials-management',
-    meta: { title: 'Credentials management', icon: 'el-icon-folder' },
-    children: [
-      {
-        path: '/credentials-index',
-        name: 'credentials-index',
-        component: () => import('@/views/credentials/index'),
-        meta: { title: 'Credentials list', icon: 'table' }
-      },
-      {
-        path: '/credentials-create',
-        name: 'credentials-create',
-        component: () => import('@/views/credentials/create'),
-        meta: { title: 'Create new credential', icon: 'el-icon-plus' }
-      },
-      {
-        path: '/credentials-edit/:id',
-        name: 'credentials-edit',
-        component: () => import('@/views/credentials/edit'),
-        meta: { title: 'Update a credential', icon: 'el-icon-edit-outline' },
-        hidden: true
-      }
-    ]
-  },
+  // {
+  //   path: '/categories',
+  //   component: Layout,
+  //   redirect: '/categories-index',
+  //   name: 'categories-management',
+  //   meta: { title: 'Categories management', icon: 'el-icon-files' },
+  //   children: [
+  //     {
+  //       path: '/categories-index',
+  //       name: 'categories-index',
+  //       component: () => import('@/views/categories/index'),
+  //       meta: { title: 'Categories list', icon: 'el-icon-folder-opened' }
+  //     },
+  //     {
+  //       path: '/categories-create',
+  //       name: 'categories-create',
+  //       component: () => import('@/views/categories/create'),
+  //       meta: { title: 'Create new category', icon: 'el-icon-folder-add' }
+  //     },
+  //     {
+  //       path: '/categories-edit/:slug',
+  //       name: 'categories-edit',
+  //       component: () => import('@/views/categories/edit'),
+  //       meta: { title: 'Update a category', icon: 'el-icon-folder-opened' },
+  //       hidden: true
+  //     }
+  //   ]
+  // },
 
-  {
-    path: '/categories',
-    component: Layout,
-    redirect: '/categories-index',
-    name: 'categories-management',
-    meta: { title: 'Categories management', icon: 'el-icon-files' },
-    children: [
-      {
-        path: '/categories-index',
-        name: 'categories-index',
-        component: () => import('@/views/categories/index'),
-        meta: { title: 'Categories list', icon: 'el-icon-folder-opened' }
-      },
-      {
-        path: '/categories-create',
-        name: 'categories-create',
-        component: () => import('@/views/categories/create'),
-        meta: { title: 'Create new category', icon: 'el-icon-folder-add' }
-      },
-      {
-        path: '/categories-edit/:slug',
-        name: 'categories-edit',
-        component: () => import('@/views/categories/edit'),
-        meta: { title: 'Update a category', icon: 'el-icon-folder-opened' },
-        hidden: true
-      }
-    ]
-  },
+  // {
+  //   path: '/tags',
+  //   component: Layout,
+  //   redirect: '/tags-index',
+  //   name: 'tags-management',
+  //   meta: { title: 'Tags management', icon: 'el-icon-collection' },
+  //   children: [
+  //     {
+  //       path: '/tags-index',
+  //       name: 'tags-index',
+  //       component: () => import('@/views/tags/index'),
+  //       meta: { title: 'Tags list', icon: 'el-icon-collection-tag' }
+  //     },
+  //     {
+  //       path: '/tags-create',
+  //       name: 'tags-create',
+  //       component: () => import('@/views/tags/create'),
+  //       meta: { title: 'Create new tag', icon: 'el-icon-plus' }
+  //     },
+  //     {
+  //       path: '/tags-edit/:id',
+  //       name: 'tags-edit',
+  //       component: () => import('@/views/tags/edit'),
+  //       meta: { title: 'Update a tag', icon: 'el-icon-collection-tag' },
+  //       hidden: true
+  //     }
+  //   ]
+  // },
 
-  {
-    path: '/tags',
-    component: Layout,
-    redirect: '/tags-index',
-    name: 'tags-management',
-    meta: { title: 'Tags management', icon: 'el-icon-collection' },
-    children: [
-      {
-        path: '/tags-index',
-        name: 'tags-index',
-        component: () => import('@/views/tags/index'),
-        meta: { title: 'Tags list', icon: 'el-icon-collection-tag' }
-      },
-      {
-        path: '/tags-create',
-        name: 'tags-create',
-        component: () => import('@/views/tags/create'),
-        meta: { title: 'Create new tag', icon: 'el-icon-plus' }
-      },
-      {
-        path: '/tags-edit/:id',
-        name: 'tags-edit',
-        component: () => import('@/views/tags/edit'),
-        meta: { title: 'Update a tag', icon: 'el-icon-collection-tag' },
-        hidden: true
-      }
-    ]
-  },
-
-  {
-    path: '/reviews',
-    component: Layout,
-    redirect: '/reviews-index',
-    name: 'reviews-management',
-    meta: { title: 'Reviews management', icon: 'el-icon-magic-stick' },
-    children: [
-      {
-        path: '/reviews-index',
-        name: 'reviews-index',
-        component: () => import('@/views/reviews/index'),
-        meta: { title: 'Reviews list', icon: 'el-icon-magic-stick' }
-      }
-    ]
-  },
+  // {
+  //   path: '/reviews',
+  //   component: Layout,
+  //   redirect: '/reviews-index',
+  //   name: 'reviews-management',
+  //   meta: { title: 'Reviews management', icon: 'el-icon-magic-stick' },
+  //   children: [
+  //     {
+  //       path: '/reviews-index',
+  //       name: 'reviews-index',
+  //       component: () => import('@/views/reviews/index'),
+  //       meta: { title: 'Reviews list', icon: 'el-icon-magic-stick' }
+  //     }
+  //   ]
+  // },
 
   {
     name: 'login',
