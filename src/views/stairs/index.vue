@@ -9,40 +9,35 @@
       @my-table-edit="onEdit($event.id)"
       @my-table-delete="onDelete($event.id)"
     >
-      <el-table-column label="#ID" width="100">
+      <el-table-column label="#ID" width="250">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Name" width="350">
+      <el-table-column label="Name" >
         <template slot-scope="scope">
           {{ scope.row.name }}
         </template>
       </el-table-column>
-      <el-table-column label="Created At" width="350">
+      <el-table-column label="Sector ID" >
         <template slot-scope="scope">
-          {{ scope.row.createdAt | formatDateTime  }}
+          {{ scope.row.sectorId }}
         </template>
       </el-table-column>
-      <el-table-column label="Updated date">
-        <template slot-scope="scope">
-          <i class="el-icon-time" style="margin-right: 0.25rem" />
-          <span>{{ scope.row.updatedAt | formatDateTime }}</span>
-        </template>
-      </el-table-column>
+     
     </my-el-table>
   </div>
 </template>
 
 <script>
 import dev from '@/utils/dev'
-import { categoryService } from '@/services/category'
+import { stairService } from '@/services/stair'
 import { defineComponent } from '@vue/composition-api'
 import { useElement } from '@/use/element'
 const { confirmAction } = useElement()
 
 export default defineComponent({
-  name: 'CategorysIndexPage',
+  name: 'StairsIndexPage',
   data() {
     return {
       query: {
@@ -63,9 +58,8 @@ export default defineComponent({
       await this.fetchData()
     },
     onEdit(id) {
-      alert(id)
       this.$router.push({
-        name: 'categories-edit',
+        name: 'stairs-edit',
         params: {
           id
         }
@@ -79,7 +73,7 @@ export default defineComponent({
       }, async() => {
         try {
           this.listLoading = true
-          await categoryService.deleteOne(slug)
+          await stairService.deleteOne(slug)
           await this.fetchData()
         } catch (err) {
           dev.error(err)
@@ -91,7 +85,7 @@ export default defineComponent({
     async fetchData() {
       try {
         this.listLoading = true
-        const { data } = await categoryService.getMany(this.query)
+        const { data } = await stairService.getMany(this.query)
         this.list = data.content
         this.listTotal = data.meta.totalRecord
       } catch (err) {

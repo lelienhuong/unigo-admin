@@ -4,6 +4,9 @@
       <el-form-item label="Name" prop="name">
         <el-input v-model="form.name" autocomplete="new-password" />
       </el-form-item>
+      <el-form-item label="SectorID" prop="sectorId">
+        <el-input v-model="form.sectorId" autocomplete="new-password" />
+      </el-form-item>
       <div style="text-align: right">
         <el-button type="secondary" size="mini" @click="clearForm">
           Cancel
@@ -17,7 +20,7 @@
 </template>
 <script>
 import dev from '@/utils/dev'
-import { categoryService } from '@/services/category'
+import { stairService } from '@/services/stair'
 import { defineComponent, ref } from '@vue/composition-api'
 import router from '@/router'
 export default defineComponent({
@@ -27,9 +30,13 @@ export default defineComponent({
       name: [
         { required: true, message: 'This field is required' }
       ],
+      sectorId:[
+        { required: true, message: 'This field is required' }
+      ]
     }
     const formOriginal = {
       name: null,
+      sectorId:null
     }
     const form = ref(formOriginal)
     const formLoading = ref(false)
@@ -42,9 +49,9 @@ export default defineComponent({
           Object.keys(normalizedForm).forEach(key => {
             if (!normalizedForm[key]) delete normalizedForm[key]
           })
-          await categoryService.createOne(form.value)
+          await stairService.createOne(form.value)
           router.push({
-            name: 'categories-index'
+            name: 'stairs-index'
           })
         }
       } catch (err) {

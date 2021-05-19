@@ -14,40 +14,36 @@
           {{ scope.row.id }}
         </template>
       </el-table-column>
-      <el-table-column label="Name" width="150">
+      <el-table-column label="Latitude" width="250">
         <template slot-scope="scope">
-          <span>{{ scope.row.name }}</span>
+          <span>{{ scope.row.latitude }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Floor" width="100">
+      <el-table-column label="Longitude" width="250">
         <template slot-scope="scope">
-          {{ scope.row.floorNumber }}
+          {{ scope.row.longitude }}
         </template>
       </el-table-column>
-      <el-table-column label="Sector ID" width="100">
+      <el-table-column label="SchoolId" width="130">
+        <template slot-scope="scope">
+          {{ scope.row.schoolId }}
+        </template>
+      </el-table-column>
+      <el-table-column label="Sector ID">
         <template slot-scope="scope">
           {{ scope.row.sectorId }}
         </template>
       </el-table-column>
-      <el-table-column label="Category ID" width="100">
+      <el-table-column label="Stair ID">
         <template slot-scope="scope">
-          {{ scope.row.categoryId }}
+          {{ scope.row.stairId }}
         </template>
       </el-table-column>
-      <el-table-column label="NameTag" width="130">
+      <el-table-column label="Near Nodes ID">
         <template slot-scope="scope">
-          {{ scope.row.nameTag }}
-        </template>
-      </el-table-column>
-      <el-table-column label="Description">
-        <template slot-scope="scope">
-          {{ scope.row.description }}
-        </template>
-      </el-table-column>
-      <el-table-column label="Updated date">
-        <template slot-scope="scope">
-          <i class="el-icon-time" style="margin-right: 0.25rem" />
-          <span>{{ scope.row.updatedAt | formatDateTime }}</span>
+         <div v-for="(node,index) in scope.row.nearNodes" :key="index">
+          {{node.id }}
+        </div>
         </template>
       </el-table-column>
     </my-el-table>
@@ -56,13 +52,13 @@
 
 <script>
 import dev from "@/utils/dev";
-import { placeService } from "@/services/place";
+import { nodeService } from "@/services/node";
 import { defineComponent } from "@vue/composition-api";
 import { useElement } from "@/use/element";
 const { confirmAction } = useElement();
 
 export default defineComponent({
-  name: "PlacesIndexPage",
+  name: "NodesIndexPage",
   data() {
     return {
       query: {
@@ -72,6 +68,7 @@ export default defineComponent({
       list: null,
       listTotal: null,
       listLoading: true,
+      nearNodes:[]
     };
   },
   created() {
@@ -84,7 +81,7 @@ export default defineComponent({
     },
     onEdit(id) {
       this.$router.push({
-        name: "places-edit",
+        name: "nodes-edit",
         params: {
           id,
         },
@@ -100,7 +97,7 @@ export default defineComponent({
         async () => {
           try {
             this.listLoading = true;
-            await placeService.deleteOne(id);
+            await nodeService.deleteOne(id);
             await this.fetchData();
           } catch (err) {
             dev.error(err);
@@ -113,8 +110,8 @@ export default defineComponent({
     async fetchData() {
       try {
         this.listLoading = true;
-        const { data } = await placeService.getMany(this.query);
-        this.list = data.content;
+        const { data } = await nodeService.getMany(this.query);
+        this.list = data.content[0];
         this.listTotal = data.meta.totalRecord;
       } catch (err) {
         dev.error(err);

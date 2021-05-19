@@ -4,6 +4,21 @@
       <el-form-item label="Name" prop="name">
         <el-input v-model="form.name" autocomplete="new-password" />
       </el-form-item>
+      <el-form-item label="Phone" prop="phone">
+        <el-input v-model="form.phone" autocomplete="new-password" />
+      </el-form-item>
+      <el-form-item label="Size" prop="size">
+        <el-input v-model="form.size" autocomplete="new-password" />
+      </el-form-item>
+      <el-form-item label="Description" prop="description">
+        <el-input v-model="form.description" type="textarea" autocomplete="new-password" />
+      </el-form-item>
+      <el-form-item label="Category ID" prop="categoryId">
+        <el-input v-model="form.categoryId" autocomplete="new-password" />
+      </el-form-item>
+      <el-form-item label="School ID" prop="schoolId">
+        <el-input v-model="form.schoolId" autocomplete="new-password" /> 
+      </el-form-item>
       <div style="text-align: right">
         <el-button type="secondary" size="mini" @click="clearForm">
           Cancel
@@ -17,7 +32,7 @@
 </template>
 <script>
 import dev from '@/utils/dev'
-import { categoryService } from '@/services/category'
+import { sectorService } from '@/services/sector'
 import { defineComponent, ref } from '@vue/composition-api'
 import router from '@/router'
 export default defineComponent({
@@ -27,9 +42,19 @@ export default defineComponent({
       name: [
         { required: true, message: 'This field is required' }
       ],
+      phone:[],
+      size:[],
+      description: [],
+      schoolId:[],
+      categoryId:[]
     }
     const formOriginal = {
       name: null,
+      phone: null,
+      size: null,
+      description: null,
+      schoolId:null,
+      categoryId:null
     }
     const form = ref(formOriginal)
     const formLoading = ref(false)
@@ -42,9 +67,9 @@ export default defineComponent({
           Object.keys(normalizedForm).forEach(key => {
             if (!normalizedForm[key]) delete normalizedForm[key]
           })
-          await categoryService.createOne(form.value)
+          await sectorService.createOne(form.value)
           router.push({
-            name: 'categories-index'
+            name: 'sectors-index'
           })
         }
       } catch (err) {
