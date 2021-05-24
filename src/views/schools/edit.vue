@@ -72,7 +72,6 @@ export default defineComponent({
             if (!normalizedForm[key]) delete normalizedForm[key];
           });
           await schoolService.updateOne(route.params.id, form.value);
-          await fetchOne(route.params.id);
           router.push({
             name: "schools-index",
           });

@@ -93,7 +93,6 @@ export default defineComponent({
             if (!normalizedForm[key]) delete normalizedForm[key]
           })
           await placeService.updateOne(route.params.id, form.value)
-          await fetchOne(route.params.id)
           router.push({
             name: 'places-index'
           })

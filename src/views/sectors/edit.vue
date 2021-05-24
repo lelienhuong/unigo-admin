@@ -88,7 +88,9 @@ export default defineComponent({
             if (!normalizedForm[key]) delete normalizedForm[key]
           })
           await sectorService.updateOne(route.params.id, form.value)
-          await fetchOne(route.params.id)
+           router.push({
+            name: "sectors-index",
+          });
         }
       } catch (err) {
         alert(err)

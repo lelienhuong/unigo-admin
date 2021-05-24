@@ -92,7 +92,9 @@ export default defineComponent({
             if (!normalizedForm[key]) delete normalizedForm[key];
           });
           await userService.updateOne(route.params.id, form.value);
-          await fetchOne(route.params.id);
+           router.push({
+            name: "users-index",
+          });
         }
       } catch (err) {
         dev.error(err);

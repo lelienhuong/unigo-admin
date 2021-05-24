@@ -21,7 +21,7 @@
       </el-table-column>
       <el-table-column label="Sector ID" >
         <template slot-scope="scope">
-          {{ scope.row.sectorId }}
+          <span> #{{ scope.row.sectorId }} {{ scope.row.sectorName }} </span>
         </template>
       </el-table-column>
      

@@ -64,7 +64,9 @@ export default defineComponent({
             if (!normalizedForm[key]) delete normalizedForm[key]
           })
           await stairService.updateOne(route.params.id, form.value)
-          await fetchOne(route.params.id)
+          router.push({
+            name: "stairs-index",
+          });
         }
       } catch (err) {
         alert(err)

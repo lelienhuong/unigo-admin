@@ -62,7 +62,9 @@ export default defineComponent({
             if (!normalizedForm[key]) delete normalizedForm[key]
           })
           await categoryService.updateOne(route.params.id, form.value)
-          await fetchOne(route.params.id)
+           router.push({
+            name: "categories-index",
+          });
       }
       } catch (err) {
         dev.error(err)
