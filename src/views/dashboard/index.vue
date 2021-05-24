@@ -11,7 +11,7 @@ export default {
   name: 'Dashboard',
   computed: {
     ...mapState({
-      fullName: (state) => state.auth.data?.user?.email
+      fullName: (state) => state.auth.data?.user?.fullName
     })
   }
 }
