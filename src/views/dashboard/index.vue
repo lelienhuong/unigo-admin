@@ -6,14 +6,24 @@
 
 <script>
 import { mapState } from 'vuex'
+import { userService } from '@/services/user'
 
 export default {
   name: 'Dashboard',
-  computed: {
-    ...mapState({
-      fullName: (state) => state.auth.data?.user?.fullName
-    })
+  data(){
+    return {
+      fullName:null
+    }
+  },
+  async mounted(){
+    const {data} = await userService.getOne(JSON.parse(localStorage.getItem('auth')).user.id)
+    this.fullName = data.fullName
   }
+  // computed: {
+  //   ...mapState({
+  //     fullName: (state) => state.auth.data?.user?.fullName
+  //   })
+  // }
 }
 </script>
 
