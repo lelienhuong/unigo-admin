@@ -78,8 +78,8 @@ export default {
   async created() {
     var responsePLacesData = await schoolService.getAllPlaces();
     this.placesData = responsePLacesData.data
-    // var responseBuildingData = await buildingService.getAllBuildings();
-    // this.buildingData = responseBuildingData.data
+    var responseBuildingData = await buildingService.getAllBuildings();
+    this.buildingData = responseBuildingData.data
     this.placesData.forEach((item) => {
       this.dataLink.push({
         link: "dsc://unigo.pro/@3," + item.id,

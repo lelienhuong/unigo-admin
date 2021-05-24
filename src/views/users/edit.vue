@@ -6,17 +6,21 @@
       :rules="formRules"
       label-width="120px"
     >
-      <el-form-item label="Avatar">
+      <!-- <el-form-item label="Avatar">
         <el-image
           :src="form.avatar"
           fit="cover"
           style="width: 100px; height: 100px"
         />
         <el-input v-model="form.avatar" />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="Name">
         <el-input v-model="form.fullName" autocomplete="new-password" />
       </el-form-item>
+      <el-form-item label="Email">
+        <el-input v-model="form.email" autocomplete="new-password" />
+      </el-form-item>
+
       <el-form-item label="Status">
         <el-input v-model="form.status" autocomplete="new-password" />
       </el-form-item>
@@ -26,9 +30,6 @@
           autocomplete="new-password"
           show-password
         />
-      </el-form-item>
-      <el-form-item label="Roles">
-        <el-input v-model="form.roles" autocomplete="new-password" />
       </el-form-item>
       <div style="text-align: right">
         <el-button type="secondary" size="mini" @click="clearForm">
@@ -53,19 +54,17 @@ export default defineComponent({
     const formUpdateRef = ref(null);
     const formRules = {
       fullName: [{ required: true, message: "This field is required" }],
-      password: [],
-      status: [],
-      email: [],
-      roles: [],
-      avatar: [],
+      password: [{ required: true, message: "This field is required" }],
+      email: [{ required: true, message: "This field is required" }],
+      status:[]
+      // avatar: [],
     };
     const formOriginal = {
       fullName: null,
-      status: null,
       password: null,
       email: null,
-      roles: null,
-      avatar: null,
+      status:null
+      // avatar: null,
     };
     const form = ref(formOriginal);
     const formLoading = ref(false);

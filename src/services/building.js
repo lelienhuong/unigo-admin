@@ -18,7 +18,7 @@ export const buildingService = {
     authApi.get('api/path/buildings?schoolId=1&' + qs.stringify(query, { arrayFormat: 'repeat' })),
 
   getAllBuildings: () =>
-    authApi.get('api/path/buildings?schoolId=1&'),
+    authApi.get('api/tools/buildings?schoolId=1'),
   /**
     * Get single record
     */
