@@ -190,3 +190,45 @@ div:focus {
 .app-container {
   padding: 20px;
 }
+
+.qrcode--container{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+
+}
+.output {
+  padding: 30px 15px;
+  background-color: white;
+  display: flex !important;
+}
+.qrcode{
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: white;
+    font-weight: bold;
+  }
+
+  li {
+    float: left;
+     a {
+      display: block;
+      color: rgba(11, 102, 191, 1) !important;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+  
+    a:hover:not(.active) {
+      background-color: white;
+    }
+  }
+
+}

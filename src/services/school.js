@@ -2,38 +2,41 @@ import qs from 'qs'
 import { authApi } from '@/api/auth'
 import store from '@/store'
 
-export const placeService = {
+export const schoolService = {
   /**
    * Create multiple records
    */
-  createMany: (form) => authApi.post('api/places', { data: form }),
+  createMany: (form) => authApi.post('api/schools', { data: form }),
   /**
     * Create single record
     */
-  createOne: (form) => authApi.post('api/places', form),
+  createOne: (form) => authApi.post('api/schools', form),
   /**
     * Get multiple records
     */
   getMany: (query) =>
-     authApi.get('api/places?' + qs.stringify(query, { arrayFormat: 'repeat' })),
+    authApi.get('api/schools?' + qs.stringify(query, { arrayFormat: 'repeat' })),
+
+  getAllPlaces: async () =>
+    authApi.get('api/schools/1/places'),
   /**
     * Get single record
     */
-  getOne: (id) => authApi.get(`api/places/${id}`),
+  getOne: (id) => authApi.get(`api/schools/${id}`),
   /**
     * Update multiple records
     */
-  updateMany: (form) => authApi.patch(`api/places`, { data: form }),
+  updateMany: (form) => authApi.patch(`api/schools`, { data: form }),
   /**
     * Update single record
     */
-  updateOne: (id, form) => authApi.patch(`api/places/${id}`, form),
+  updateOne: (id, form) => authApi.patch(`api/schools/${id}`, form),
   /**
     * Delete multiple records
     */
   deleteMany: (ids) =>
     authApi.request({
-      url: 'api/places',
+      url: 'api/schools',
       method: 'delete',
       headers: {
         Authorization: 'Bearer ' + store.state.auth?.data?.token
@@ -43,5 +46,5 @@ export const placeService = {
   /**
     * Delete single record
     */
-  deleteOne: (id) => authApi.delete('api/places', { data: {ids:[id]} })
+  deleteOne: (id) => authApi.delete(`api/schools`, { data: {ids:[id]} })
 }

@@ -1,26 +1,14 @@
 <template>
   <div v-loading="formLoading" class="app-container">
     <el-form ref="formCreateRef" :model="form" :rules="formRules" label-width="120px">
-      <el-form-item label="Name">
-        <el-input v-model="form.name" />
+      <el-form-item label="Name" prop="name">
+        <el-input v-model="form.name" autocomplete="new-password" />
       </el-form-item>
-      <el-form-item label="Phone">
-        <el-input v-model="form.phone" autocomplete="new-password" />
+      <el-form-item label="Description" prop="description">
+        <el-input v-model="form.description" type="textarea" autocomplete="new-password" />
       </el-form-item>
-      <el-form-item label="Description">
-        <el-input v-model="form.description" type="textarea" />
-      </el-form-item>
-      <el-form-item label="Name Tag">
-        <el-input v-model="form.nameTag" autocomplete="new-password" />
-      </el-form-item>
-      <el-form-item label="Floor">
-        <el-input v-model="form.floorNumber" autocomplete="new-password" />
-      </el-form-item>
-      <el-form-item label="Sector ID">
-        <el-input v-model="form.sectorId" autocomplete="new-password" />
-      </el-form-item>
-      <el-form-item label="Category ID">
-        <el-input v-model="form.categoryId" autocomplete="new-password" />
+      <el-form-item label="Address" prop="categoryId">
+        <el-input v-model="form.address" autocomplete="new-password" />
       </el-form-item>
       <div style="text-align: right">
         <el-button type="secondary" size="mini" @click="clearForm">
@@ -35,7 +23,7 @@
 </template>
 <script>
 import dev from '@/utils/dev'
-import { placeService } from '@/services/place'
+import { schoolService } from '@/services/school'
 import { defineComponent, ref } from '@vue/composition-api'
 import router from '@/router'
 export default defineComponent({
@@ -45,25 +33,13 @@ export default defineComponent({
       name: [
         { required: true, message: 'This field is required' }
       ],
-      sectorId: [
-        { required: true, message: 'This field is required' }
-      ],
-      categoryId: [
-        { required: true, message: 'This field is required' }
-      ],
-      nameTag: [],
       description: [],
-      phone: [],
-      floorNumber: [],
+      address:[]
     }
     const formOriginal = {
       name: null,
-      phone: null,
       description: null,
-      floorNumber: null,
-      sectorId:null,
-      categoryId:null,
-      nameTag: null
+      address:null
     }
     const form = ref(formOriginal)
     const formLoading = ref(false)
@@ -76,9 +52,9 @@ export default defineComponent({
           Object.keys(normalizedForm).forEach(key => {
             if (!normalizedForm[key]) delete normalizedForm[key]
           })
-          await placeService.createOne(form.value)
+          await schoolService.createOne(form.value)
           router.push({
-            name: 'places-index'
+            name: 'schools-index'
           })
         }
       } catch (err) {

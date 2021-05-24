@@ -37,10 +37,10 @@ export default defineComponent({
     const form = ref(formOriginal)
     const formLoading = ref(false)
 
-    const fetchOne = async(id) => {
+    const fetchOne = async (id) => {
       try {
         formLoading.value = true
-        const { data } = await categoryService.getOne(id)
+        const {data} = await categoryService.getOne(id)
         Object.keys(form.value).forEach(key => {
           form.value[key] = data[key]
         })
@@ -77,7 +77,7 @@ export default defineComponent({
     }
 
     onBeforeMount(() => {
-      fetchOne(route.params.slug)
+      fetchOne(route.params.id)
     })
 
     return { form, formLoading, formUpdateRef, formRules, clearForm, fetchOne, updateOne }

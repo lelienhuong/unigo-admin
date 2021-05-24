@@ -63,7 +63,6 @@ export default defineComponent({
       await this.fetchData()
     },
     onEdit(id) {
-      alert(id)
       this.$router.push({
         name: 'categories-edit',
         params: {

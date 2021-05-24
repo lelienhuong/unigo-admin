@@ -94,6 +94,9 @@ export default defineComponent({
           })
           await placeService.updateOne(route.params.id, form.value)
           await fetchOne(route.params.id)
+          router.push({
+            name: 'places-index'
+          })
         }
       } catch (err) {
         alert(err)

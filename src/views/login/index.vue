@@ -114,7 +114,7 @@ export default defineComponent({
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
-$bg: var(--color-green);
+$bg: white;
 $light_gray:#fff;
 $cursor: #fff;
 
@@ -145,10 +145,6 @@ $cursor: #fff;
         color: white;
       }
 
-      &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $bg inset !important;
-        -webkit-text-fill-color: $cursor !important;
-      }
     }
   }
 
@@ -167,7 +163,7 @@ $cursor: #fff;
 </style>
 
 <style lang="scss" scoped>
-$bg: var(--color-green);
+$bg: #262672;//rgb(75, 75, 214);//rgba(11, 102, 191, 1);
 $dark_gray:#889aa4;
 $light_gray:#eee;
 
@@ -211,7 +207,7 @@ $light_gray:#eee;
 
     .title {
       font-size: 26px;
-      color: $light_gray;
+      color: #E6A23C;//$light_gray;
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;

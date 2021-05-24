@@ -6,29 +6,14 @@
       :rules="formRules"
       label-width="120px"
     >
-      <el-form-item label="Avatar">
-        <el-image
-          :src="form.avatar"
-          fit="cover"
-          style="width: 100px; height: 100px"
-        />
-        <el-input v-model="form.avatar" />
-      </el-form-item>
       <el-form-item label="Name">
-        <el-input v-model="form.fullName" autocomplete="new-password" />
+        <el-input v-model="form.name" />
       </el-form-item>
-      <el-form-item label="Status">
-        <el-input v-model="form.status" autocomplete="new-password" />
+      <el-form-item label="Description">
+        <el-input v-model="form.description" type="textarea" />
       </el-form-item>
-      <el-form-item label="Password">
-        <el-input
-          v-model="form.password"
-          autocomplete="new-password"
-          show-password
-        />
-      </el-form-item>
-      <el-form-item label="Roles">
-        <el-input v-model="form.roles" autocomplete="new-password" />
+      <el-form-item label="Address">
+        <el-input v-model="form.address" autocomplete="new-password" />
       </el-form-item>
       <div style="text-align: right">
         <el-button type="secondary" size="mini" @click="clearForm">
@@ -43,7 +28,7 @@
 </template>
 <script>
 import dev from "@/utils/dev";
-import { userService } from "@/services/user";
+import { schoolService } from "@/services/school";
 import { defineComponent, onBeforeMount, ref } from "@vue/composition-api";
 import router from "@/router";
 export default defineComponent({
@@ -52,20 +37,14 @@ export default defineComponent({
 
     const formUpdateRef = ref(null);
     const formRules = {
-      fullName: [{ required: true, message: "This field is required" }],
-      password: [],
-      status: [],
-      email: [],
-      roles: [],
-      avatar: [],
+      name: [{ required: true, message: "This field is required" }],
+      description: [],
+      address: [],
     };
     const formOriginal = {
-      fullName: null,
-      status: null,
-      password: null,
-      email: null,
-      roles: null,
-      avatar: null,
+      name: null,
+      description: null,
+      address: null,
     };
     const form = ref(formOriginal);
     const formLoading = ref(false);
@@ -73,7 +52,7 @@ export default defineComponent({
     const fetchOne = async (id) => {
       try {
         formLoading.value = true;
-        const { data } = await userService.getOne(id);
+        const { data } = await schoolService.getOne(id);
         Object.keys(form.value).forEach((key) => {
           form.value[key] = data[key];
         });
@@ -92,10 +71,14 @@ export default defineComponent({
           Object.keys(normalizedForm).forEach((key) => {
             if (!normalizedForm[key]) delete normalizedForm[key];
           });
-          await userService.updateOne(route.params.id, form.value);
+          await schoolService.updateOne(route.params.id, form.value);
           await fetchOne(route.params.id);
+          router.push({
+            name: "schools-index",
+          });
         }
       } catch (err) {
+        alert(err);
         dev.error(err);
       } finally {
         formLoading.value = false;

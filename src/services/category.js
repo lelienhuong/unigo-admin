@@ -43,5 +43,5 @@ export const categoryService = {
   /**
     * Delete single record
     */
-  deleteOne: (id) => authApi.delete(`api/categories/${id}`)
+  deleteOne: (id) => authApi.delete('api/categories',{ data: {ids:[id]} })
 }

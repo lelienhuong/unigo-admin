@@ -15,7 +15,7 @@ export const stairService = {
     * Get multiple records
     */
   getMany: (query) =>
-     authApi.get('api/stairs?' + qs.stringify(query, { arrayFormat: 'repeat' })),
+    authApi.get('api/stairs?' + qs.stringify(query, { arrayFormat: 'repeat' })),
   /**
     * Get single record
     */
@@ -43,5 +43,5 @@ export const stairService = {
   /**
     * Delete single record
     */
-  deleteOne: (id) => authApi.delete(`api/stairs/${id}`)
+  deleteOne: (id) => authApi.delete('api/stairs', { data: { ids: [id] } }) 
 }

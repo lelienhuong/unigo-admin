@@ -65,6 +65,21 @@ export const constantRoutes = [
         hidden: true
       }]
   },
+  {
+    path: '/qrcodes',
+    component: Layout,
+    redirect: '/qrcodes-index',
+    name: 'qrcodes-management',
+    meta: { title: 'qrcodes management', icon: 'el-icon-user-solid' },
+    children: [
+      {
+        path: '/qrcodes-index',
+        name: 'qrcodes-index',
+        component: () => import('@/views/qrcodes/index'),
+        meta: { title: 'QRcodes list', icon: 'table' }
+      }
+    ]
+  },
 
   {
     path: '/sectors',
@@ -206,6 +221,34 @@ export const constantRoutes = [
         name: 'nodes-edit',
         component: () => import('@/views/nodes/edit'),
         meta: { title: 'Update a node', icon: 'el-icon-edit-outline' },
+        hidden: true
+      }
+    ]
+  },
+  {
+    path: '/schools',
+    component: Layout,
+    redirect: '/nodes-index',
+    name: 'schools-management',
+    meta: { title: 'Schools management', icon: 'el-icon-folder-checked' },
+    children: [
+      {
+        path: '/schools-index',
+        name: 'schools-index',
+        component: () => import('@/views/schools/index'),
+        meta: { title: 'Schools list', icon: 'table' }
+      },
+      {
+        path: '/schools-create',
+        name: 'schools-create',
+        component: () => import('@/views/schools/create'),
+        meta: { title: 'Create new school', icon: 'el-icon-plus' }
+      },
+      {
+        path: '/schools-edit/:id',
+        name: 'schools-edit',
+        component: () => import('@/views/schools/edit'),
+        meta: { title: 'Update a school', icon: 'el-icon-edit-outline' },
         hidden: true
       }
     ]

@@ -43,5 +43,5 @@ export const sectorService = {
   /**
     * Delete single record
     */
-  deleteOne: (id) => authApi.delete(`api/sectors/${id}`)
+  deleteOne: (id) => authApi.delete('api/sectors',{ data: {ids:[id]} })
 }

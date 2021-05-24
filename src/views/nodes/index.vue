@@ -9,22 +9,22 @@
       @my-table-edit="onEdit($event.id)"
       @my-table-delete="onDelete($event.id)"
     >
-      <el-table-column label="#ID" width="50" align="center" fixed>
+      <el-table-column label="#ID" align="center" fixed>
         <template slot-scope="scope">
           {{ scope.row.id }}
         </template>
       </el-table-column>
-      <el-table-column label="Latitude" width="250">
+      <el-table-column label="Latitude">
         <template slot-scope="scope">
           <span>{{ scope.row.latitude }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="Longitude" width="250">
+      <el-table-column label="Longitude">
         <template slot-scope="scope">
           {{ scope.row.longitude }}
         </template>
       </el-table-column>
-      <el-table-column label="SchoolId" width="130">
+      <el-table-column label="SchoolId">
         <template slot-scope="scope">
           {{ scope.row.schoolId }}
         </template>
@@ -37,6 +37,36 @@
       <el-table-column label="Stair ID">
         <template slot-scope="scope">
           {{ scope.row.stairId }}
+        </template>
+      </el-table-column>
+      <el-table-column label="Place ID">
+        <template slot-scope="scope">
+          {{ scope.row.placeId }}
+        </template>
+      </el-table-column>
+      <el-table-column label="Place Main Entrance">
+        <template slot-scope="scope">
+          {{ scope.row.isPlaceMainEntrance }}
+        </template>
+      </el-table-column>
+      <el-table-column label="Sector Main Entrance">
+        <template slot-scope="scope">
+          {{ scope.row.isSectorMainEntrance }}
+        </template>
+      </el-table-column>
+      <el-table-column label="Floor">
+        <template slot-scope="scope">
+          {{ scope.row.floorNumber }}
+        </template>
+      </el-table-column>
+      <el-table-column label="Stair Node Sequence">
+        <template slot-scope="scope">
+          {{ scope.row.stairNodeSequence }}
+        </template>
+      </el-table-column>
+      <el-table-column label="For Vehicles">
+        <template slot-scope="scope">
+          {{ scope.row.isForVehicles }}
         </template>
       </el-table-column>
       <el-table-column label="Near Nodes ID">
@@ -68,7 +98,7 @@ export default defineComponent({
       list: null,
       listTotal: null,
       listLoading: true,
-      nearNodes:[]
+      nearNodes:[],
     };
   },
   created() {

@@ -14,34 +14,19 @@
           {{ scope.row.id }}
         </template>
       </el-table-column>
-      <el-table-column label="Name" width="150">
+      <el-table-column label="Name" width="250">
         <template slot-scope="scope">
           <span>{{ scope.row.name }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Floor" width="100">
-        <template slot-scope="scope">
-          {{ scope.row.floorNumber }}
-        </template>
-      </el-table-column>
-      <el-table-column label="Sector (ID,Name)" width="150">
-        <template slot-scope="scope">
-          <span> #{{ scope.row.sectorId }} {{ scope.row.sectorName }} </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Category (ID,Name)" width="200">
-        <template slot-scope="scope">
-          <span> #{{ scope.row.categoryId }} {{ scope.row.categoryName }} </span>
-        </template>
-      </el-table-column>
-      <el-table-column label="NameTag" width="130">
-        <template slot-scope="scope">
-          {{ scope.row.nameTag }}
         </template>
       </el-table-column>
       <el-table-column label="Description">
         <template slot-scope="scope">
           {{ scope.row.description }}
+        </template>
+      </el-table-column>
+      <el-table-column label="Address" width="250">
+        <template slot-scope="scope">
+          {{ scope.row.address }}
         </template>
       </el-table-column>
       <el-table-column label="Updated date">
@@ -56,13 +41,13 @@
 
 <script>
 import dev from "@/utils/dev";
-import { placeService } from "@/services/place";
+import { schoolService } from "@/services/school";
 import { defineComponent } from "@vue/composition-api";
 import { useElement } from "@/use/element";
 const { confirmAction } = useElement();
 
 export default defineComponent({
-  name: "PlacesIndexPage",
+  name: "SchoolsIndexPage",
   data() {
     return {
       query: {
@@ -84,7 +69,7 @@ export default defineComponent({
     },
     onEdit(id) {
       this.$router.push({
-        name: "places-edit",
+        name: "schools-edit",
         params: {
           id,
         },
@@ -100,7 +85,7 @@ export default defineComponent({
         async () => {
           try {
             this.listLoading = true;
-            await placeService.deleteOne(id);
+            await schoolService.deleteOne(id);
             await this.fetchData();
           } catch (err) {
             dev.error(err);
@@ -113,7 +98,7 @@ export default defineComponent({
     async fetchData() {
       try {
         this.listLoading = true;
-        const { data } = await placeService.getMany(this.query);
+        const { data } = await schoolService.getMany(this.query);
         this.list = data.content;
         this.listTotal = data.meta.totalRecord;
       } catch (err) {

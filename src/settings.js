@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'beebee.travel - Nền tảng B2B dành cho các dịch vụ ngành du lịch',
+  title: 'Unigo - Ứng dụng dẫn đường cho sinh viên các trường đại học',
 
   /**
    * @type {boolean} true | false
